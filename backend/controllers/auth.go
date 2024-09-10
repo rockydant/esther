@@ -12,6 +12,15 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// @Summary Login
+// @Description login
+// @Accept  json
+// @Produce  json
+//
+//	@Param			UserDTO	body		models.UserDTO	true	"Login user"
+//
+// @Success 200 "ok"
+// @Router /login [post]
 func Login(c *gin.Context) {
 	var input models.UserDTO
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -45,20 +54,56 @@ func Login(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"token": tokenString})
 }
 
+// @Summary Register
+// @Description register
+// @Accept  json
+// @Produce  json
+//
+//	@Param			RegisterDTO	body		models.RegisterDTO	true	"Register new user"
+//
+// @Success 200 "ok"
+// @Router /register [post]
 func Register(c *gin.Context) {
-	var input models.User
+	var input models.RegisterDTO
+
+	// Bind and validate the input
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
-	input.Password = string(hashedPassword)
-
-	if err := models.DB.Create(&input).Error; err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+	// Check if the role exists
+	var role models.Role
+	if err := models.DB.First(&role, input.RoleID).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Role not found"})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"user": input})
+	// Hash the password
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to hash password"})
+		return
+	}
+
+	// Create the new user object
+	user := models.User{
+		Username: input.Username,
+		Password: string(hashedPassword),
+		RoleID:   input.RoleID,
+		Role:     role,
+	}
+
+	// Save the user to the database
+	if err := models.DB.Create(&user).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create user"})
+		return
+	}
+
+	// Return the created user (without the password)
+	c.JSON(http.StatusCreated, gin.H{
+		"id":       user.ID,
+		"username": user.Username,
+		"role":     role.Name,
+	})
 }

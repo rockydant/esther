@@ -8,13 +8,14 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-// swagger:route GET /api/users users GetUsers
+// @Summary List users
+// @Description list all users
+// @Accept  json
+// @Produce  json
 //
-// GetUsers returns all users.
-//
-// Responses:
-//
-//	200: successResponse
+// @Security ApiKeyAuth
+// @Success 200 "ok"
+// @Router /api/users [post]
 func GetUsers(c *gin.Context) {
 	var users []models.User
 	models.DB.Preload("Role").Find(&users)

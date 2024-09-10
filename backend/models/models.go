@@ -14,6 +14,12 @@ type UserDTO struct {
 	Password string `json:"password"`
 }
 
+type RegisterDTO struct {
+	Username string `json:"username" binding:"required"`
+	Password string `json:"password" binding:"required"`
+	RoleID   uint   `json:"role_id" binding:"required"`
+}
+
 // User represents a blog post with a Username, Password, RoleID, Role.
 // swagger:model
 type User struct {

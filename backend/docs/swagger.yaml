@@ -1,4 +1,91 @@
+basePath: /
+definitions:
+  models.RegisterDTO:
+    properties:
+      password:
+        type: string
+      role_id:
+        type: integer
+      username:
+        type: string
+    required:
+    - password
+    - role_id
+    - username
+    type: object
+  models.UserDTO:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+host: localhost:8080
 info:
-  contact: {}
-paths: {}
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is api server for esther project
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Esther Server API
+  version: "1.0"
+paths:
+  /api/users:
+    post:
+      consumes:
+      - application/json
+      description: list all users
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+      security:
+      - ApiKeyAuth: []
+      summary: List users
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: login
+      parameters:
+      - description: Login user
+        in: body
+        name: UserDTO
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+      summary: Login
+  /register:
+    post:
+      consumes:
+      - application/json
+      description: register
+      parameters:
+      - description: Register new user
+        in: body
+        name: RegisterDTO
+        required: true
+        schema:
+          $ref: '#/definitions/models.RegisterDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+      summary: Register
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Bearer
+    type: apiKey
 swagger: "2.0"
