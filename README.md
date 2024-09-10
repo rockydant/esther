@@ -16,22 +16,22 @@ cd backend && go mod tidy && cd .. && cd frontend && npm install && ng serve
 - [x] User authentication with JWT
 - [x] CRUD for users
 - [x] CRUD for roles
-- [] CRUD for permissions
-- [] Dockerfile
-- [] Makefile
+- [ ] CRUD for permissions
+- [ ] Dockerfile
+- [ ] Makefile
 
 ### Frontend
 
 - [x] Login page
 - [x] Dashboard page
-- [] User list page
-- [] Role list page
-- [] Permission list page
-- [] User detail page
-- [] Role detail page
-- [] Permission detail page
-- [] Dockerfile
-- [] Makefile
+- [ ] User list page
+- [ ] Role list page
+- [ ] Permission list page
+- [ ] User detail page
+- [ ] Role detail page
+- [ ] Permission detail page
+- [ ] Dockerfile
+- [ ] Makefile
 
 ### TODO
 
