@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres
+    container_name: postgres-container
+    environment:
+      POSTGRES_USER: esther
+      POSTGRES_PASSWORD: 12345678
+      POSTGRES_DB: esther
+    ports:
+      - "5432:5432"
+    networks:
+      - my_network
+
+  app:
+    build: .
+    container_name: esther
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
