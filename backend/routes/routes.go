@@ -51,7 +51,13 @@ func SetupRouter() *gin.Engine {
 	protected.Use(cors.New(corsConfig))
 	protected.Use(middlewares.CORSMiddleware())
 	protected.Use(middlewares.JWTAuthMiddleware())
+
 	protected.GET("/users", controllers.GetUsers)
+	protected.GET("/users/:id", controllers.GetUser)
+	protected.POST("/users", controllers.CreateUser)
+	protected.PUT("/users/:id", controllers.UpdateUser)
+	protected.DELETE("/users/:id", controllers.DeleteUser)
+
 	// swagger:route GET /api/roles roles GetRoles
 	//
 	// GetRoles returns all roles.
@@ -60,6 +66,10 @@ func SetupRouter() *gin.Engine {
 	//
 	//	200: successResponse
 	protected.GET("/roles", controllers.GetRoles)
+	protected.GET("/roles/:id", controllers.GetRole)
+	protected.POST("/roles", controllers.CreateRole)
+	protected.PUT("/roles/:id", controllers.UpdateRole)
+	protected.DELETE("/roles/:id", controllers.DeleteRole)
 
 	return r
 }
