@@ -13,6 +13,15 @@ definitions:
     - role_id
     - username
     type: object
+  models.UpdatedUserDTO:
+    properties:
+      role_id:
+        type: integer
+      user_id:
+        type: integer
+      username:
+        type: string
+    type: object
   models.UserDTO:
     properties:
       password:
@@ -34,8 +43,91 @@ info:
   title: Esther Server API
   version: "1.0"
 paths:
-  /api/users:
+  /api/user:
+    delete:
+      consumes:
+      - application/json
+      description: Delete user
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+      security:
+      - JWT: []
+      summary: Delete user
+      tags:
+      - Users
+    get:
+      consumes:
+      - application/json
+      description: Get user by id
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+      security:
+      - JWT: []
+      summary: Get user
+      tags:
+      - Users
     post:
+      consumes:
+      - application/json
+      description: Create new user
+      parameters:
+      - description: Register new user
+        in: body
+        name: RegisterDTO
+        required: true
+        schema:
+          $ref: '#/definitions/models.RegisterDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+      security:
+      - JWT: []
+      summary: Create user
+      tags:
+      - Users
+    put:
+      consumes:
+      - application/json
+      description: Update user
+      parameters:
+      - description: Update user
+        in: body
+        name: UpdatedUserDTO
+        required: true
+        schema:
+          $ref: '#/definitions/models.UpdatedUserDTO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+      security:
+      - JWT: []
+      summary: Update user
+      tags:
+      - Users
+  /api/users:
+    get:
       consumes:
       - application/json
       description: list all users
@@ -45,8 +137,10 @@ paths:
         "200":
           description: ok
       security:
-      - ApiKeyAuth: []
+      - JWT: []
       summary: List users
+      tags:
+      - Users
   /login:
     post:
       consumes:
@@ -65,6 +159,8 @@ paths:
         "200":
           description: ok
       summary: Login
+      tags:
+      - Auth
   /register:
     post:
       consumes:
@@ -83,9 +179,11 @@ paths:
         "200":
           description: ok
       summary: Register
+      tags:
+      - Auth
 securityDefinitions:
-  ApiKeyAuth:
+  JWT:
     in: header
-    name: Bearer
+    name: Authorization
     type: apiKey
 swagger: "2.0"

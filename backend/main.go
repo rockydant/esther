@@ -20,9 +20,9 @@ import (
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @securityDefinitions.apikey ApiKeyAuth
-// @in header
-// @name Bearer
+// @securityDefinitions.apikey JWT
+// @in                          header
+// @name                        Authorization
 
 // @host localhost:8080
 // @BasePath /

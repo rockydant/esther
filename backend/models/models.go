@@ -30,6 +30,13 @@ type User struct {
 	Role     Role   `json:"role" gorm:"foreignKey:RoleID"`
 }
 
+type UpdatedUserDTO struct {
+	UserID   uint   `json:"user_id"`
+	Username string `json:"username" gorm:"unique"`
+	Password string `json:"-"`
+	RoleID   uint   `json:"role_id"`
+}
+
 // Role represents a blog post with a Name.
 // swagger:model
 type Role struct {

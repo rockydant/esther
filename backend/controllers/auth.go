@@ -16,6 +16,7 @@ import (
 // @Description login
 // @Accept  json
 // @Produce  json
+// @Tags Auth
 //
 //	@Param			UserDTO	body		models.UserDTO	true	"Login user"
 //
@@ -58,6 +59,7 @@ func Login(c *gin.Context) {
 // @Description register
 // @Accept  json
 // @Produce  json
+// @Tags Auth
 //
 //	@Param			RegisterDTO	body		models.RegisterDTO	true	"Register new user"
 //

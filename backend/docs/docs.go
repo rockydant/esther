@@ -24,11 +24,145 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/users": {
+        "/api/user": {
+            "get": {
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "description": "Get user by id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok"
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "description": "Update user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update user",
+                "parameters": [
+                    {
+                        "description": "Update user",
+                        "name": "UpdatedUserDTO",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UpdatedUserDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok"
+                    }
+                }
+            },
             "post": {
                 "security": [
                     {
-                        "ApiKeyAuth": []
+                        "JWT": []
+                    }
+                ],
+                "description": "Create new user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Create user",
+                "parameters": [
+                    {
+                        "description": "Register new user",
+                        "name": "RegisterDTO",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.RegisterDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok"
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "description": "Delete user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Delete user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ok"
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "get": {
+                "security": [
+                    {
+                        "JWT": []
                     }
                 ],
                 "description": "list all users",
@@ -37,6 +171,9 @@ const docTemplate = `{
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "Users"
                 ],
                 "summary": "List users",
                 "responses": {
@@ -54,6 +191,9 @@ const docTemplate = `{
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "Auth"
                 ],
                 "summary": "Login",
                 "parameters": [
@@ -82,6 +222,9 @@ const docTemplate = `{
                 ],
                 "produces": [
                     "application/json"
+                ],
+                "tags": [
+                    "Auth"
                 ],
                 "summary": "Register",
                 "parameters": [
@@ -123,6 +266,20 @@ const docTemplate = `{
                 }
             }
         },
+        "models.UpdatedUserDTO": {
+            "type": "object",
+            "properties": {
+                "role_id": {
+                    "type": "integer"
+                },
+                "user_id": {
+                    "type": "integer"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
         "models.UserDTO": {
             "type": "object",
             "properties": {
@@ -136,9 +293,9 @@ const docTemplate = `{
         }
     },
     "securityDefinitions": {
-        "ApiKeyAuth": {
+        "JWT": {
             "type": "apiKey",
-            "name": "Bearer",
+            "name": "Authorization",
             "in": "header"
         }
     }
