@@ -28,7 +28,7 @@ func InitUserController(service service.UsersService) *UserController {
 //
 // @Security JWT
 // @Success 200 "ok"
-// @Router /api/users [get]
+// @Router /users [get]
 func (controller *UserController) GetUsers(c *gin.Context) {
 	users := controller.userService.FindAll()
 	c.JSON(http.StatusOK, gin.H{"data": users})
@@ -42,7 +42,7 @@ func (controller *UserController) GetUsers(c *gin.Context) {
 // @Param id path string true "User ID"
 // @Security JWT
 // @Success 200 "ok"
-// @Router /api/users [get]
+// @Router /users/{id} [get]
 func (controller *UserController) GetUser(c *gin.Context) {
 	id := c.Param("id")
 	parsedId, _ := strconv.Atoi(id)
@@ -59,7 +59,7 @@ func (controller *UserController) GetUser(c *gin.Context) {
 // @Param RegisterDTO	body		models.RegisterDTO	true	"Register new user"
 // @Security JWT
 // @Success 200 "ok"
-// @Router /api/users [post]
+// @Router /users [post]
 func (controller *UserController) CreateUser(c *gin.Context) {
 	var input models.RegisterDTO
 
@@ -113,7 +113,7 @@ func (controller *UserController) CreateUser(c *gin.Context) {
 // @Param UpdatedUserDTO	body		models.UpdatedUserDTO	true	"Update user"
 // @Security JWT
 // @Success 200 "ok"
-// @Router /api/users [put]
+// @Router /users [put]
 // UpdateUser handles the PUT request to update an existing user by ID
 func (controller *UserController) UpdateUser(c *gin.Context) {
 	var updatedUser models.UpdatedUserDTO
@@ -158,7 +158,7 @@ func (controller *UserController) UpdateUser(c *gin.Context) {
 // @Param id path string true "User ID"
 // @Security JWT
 // @Success 200 "ok"
-// @Router /api/users [delete]
+// @Router /users [delete]
 // DeleteUser handles the DELETE request to delete a user by ID
 func (controller *UserController) DeleteUser(c *gin.Context) {
 	id := c.Param("id")

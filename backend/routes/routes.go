@@ -49,17 +49,17 @@ func SetupRouter(roleController *controller.RoleController, userController *cont
 	r.POST("/register", controller.Register)
 
 	// Protected routes
-	protected := r.Group("/api")
+	protected := r.Group("/")
 
 	protected.Use(cors.New(corsConfig))
 	protected.Use(middlewares.CORSMiddleware())
 	protected.Use(middlewares.JWTAuthMiddleware())
 
-	protected.GET("/users", userController.GetUsers)
-	protected.GET("/users/:id", userController.GetUser)
-	protected.POST("/users", userController.CreateUser)
-	protected.PUT("/users/:id", userController.UpdateUser)
-	protected.DELETE("/users/:id", userController.DeleteUser)
+	protected.GET("users", userController.GetUsers)
+	protected.GET("users/:id", userController.GetUser)
+	protected.POST("users", userController.CreateUser)
+	protected.PUT("users/:id", userController.UpdateUser)
+	protected.DELETE("users/:id", userController.DeleteUser)
 
 	// swagger:route GET /api/roles roles GetRoles
 	//
