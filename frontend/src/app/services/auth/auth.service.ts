@@ -8,11 +8,12 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class AuthService {
     private tokenKey = 'token';
+    private _backendEndpoint = import.meta.env.NG_APP_BACKEND_ENDPOINT;
 
-    constructor(private http: HttpClient, private router: Router) {}
+    constructor(private http: HttpClient, private router: Router) { }
 
     login(username: string, password: string) {
-        return this.http.post<any>('http://localhost:8080/login', {
+        return this.http.post<any>(this._backendEndpoint + 'login', {
             username,
             password,
         });
