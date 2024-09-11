@@ -21,6 +21,7 @@ FROM alpine:latest
 
 # Copy the Pre-built binary file from the builder stage
 COPY --from=builder /app/main .
+COPY .env ./
 
 # Expose port 8080 to the outside world
 EXPOSE 8080
