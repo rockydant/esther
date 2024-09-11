@@ -4,6 +4,8 @@ This is a simple template used to create a new project with Go (Gin) for backend
 
 ## How to use it?
 
+update .env with db info
+
 cd backend && go mod tidy && cd .. && cd frontend && npm install && ng serve
 
 ## What's inside?
