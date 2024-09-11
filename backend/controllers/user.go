@@ -31,7 +31,7 @@ func GetUsers(c *gin.Context) {
 // @Param id path string true "User ID"
 // @Security JWT
 // @Success 200 "ok"
-// @Router /api/user [get]
+// @Router /api/users [get]
 func GetUser(c *gin.Context) {
 	id := c.Param("id")
 	var user models.User
@@ -50,7 +50,7 @@ func GetUser(c *gin.Context) {
 // @Param RegisterDTO	body		models.RegisterDTO	true	"Register new user"
 // @Security JWT
 // @Success 200 "ok"
-// @Router /api/user [post]
+// @Router /api/users [post]
 func CreateUser(c *gin.Context) {
 	var input models.RegisterDTO
 
@@ -104,7 +104,7 @@ func CreateUser(c *gin.Context) {
 // @Param UpdatedUserDTO	body		models.UpdatedUserDTO	true	"Update user"
 // @Security JWT
 // @Success 200 "ok"
-// @Router /api/user [put]
+// @Router /api/users [put]
 // UpdateUser handles the PUT request to update an existing user by ID
 func UpdateUser(c *gin.Context) {
 	var updatedUser models.UpdatedUserDTO
@@ -149,7 +149,7 @@ func UpdateUser(c *gin.Context) {
 // @Param id path string true "User ID"
 // @Security JWT
 // @Success 200 "ok"
-// @Router /api/user [delete]
+// @Router /api/users [delete]
 // DeleteUser handles the DELETE request to delete a user by ID
 func DeleteUser(c *gin.Context) {
 	id := c.Param("id")

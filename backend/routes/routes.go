@@ -57,7 +57,7 @@ func SetupRouter() *gin.Engine {
 
 	protected.GET("/users", controllers.GetUsers)
 	protected.GET("/users/:id", controllers.GetUser)
-	protected.POST("/user", controllers.CreateUser)
+	protected.POST("/users", controllers.CreateUser)
 	protected.PUT("/users/:id", controllers.UpdateUser)
 	protected.DELETE("/users/:id", controllers.DeleteUser)
 

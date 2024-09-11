@@ -18,7 +18,7 @@
     "host": "localhost:8080",
     "basePath": "/",
     "paths": {
-        "/api/user": {
+        "/api/users": {
             "get": {
                 "security": [
                     {
@@ -145,31 +145,6 @@
                         "required": true
                     }
                 ],
-                "responses": {
-                    "200": {
-                        "description": "ok"
-                    }
-                }
-            }
-        },
-        "/api/users": {
-            "get": {
-                "security": [
-                    {
-                        "JWT": []
-                    }
-                ],
-                "description": "list all users",
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Users"
-                ],
-                "summary": "List users",
                 "responses": {
                     "200": {
                         "description": "ok"

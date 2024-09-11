@@ -43,7 +43,7 @@ info:
   title: Esther Server API
   version: "1.0"
 paths:
-  /api/user:
+  /api/users:
     delete:
       consumes:
       - application/json
@@ -124,21 +124,6 @@ paths:
       security:
       - JWT: []
       summary: Update user
-      tags:
-      - Users
-  /api/users:
-    get:
-      consumes:
-      - application/json
-      description: list all users
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: ok
-      security:
-      - JWT: []
-      summary: List users
       tags:
       - Users
   /login:
