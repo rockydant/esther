@@ -48,10 +48,11 @@ var DB *gorm.DB
 
 func InitDB() {
 	DB = config.DB
-	createDefaultRoleAndAdmin(DB)
 }
 
-func createDefaultRoleAndAdmin(db *gorm.DB) {
+func CreateDefaultRoleAndAdmin() {
+	db := DB
+
 	var adminRole Role
 	var adminUser User
 

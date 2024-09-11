@@ -3,6 +3,7 @@ module esther
 go 1.21.4
 
 require (
+	github.com/gin-contrib/cors v1.7.2
 	github.com/swaggo/swag v1.16.3
 	gorm.io/driver/postgres v1.5.9
 	gorm.io/gorm v1.25.12
@@ -17,7 +18,6 @@ require (
 	github.com/cloudwego/base64x v0.1.4 // indirect
 	github.com/cloudwego/iasm v0.2.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
-	github.com/gin-contrib/cors v1.7.2 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-openapi/jsonpointer v0.19.5 // indirect
 	github.com/go-openapi/jsonreference v0.19.6 // indirect

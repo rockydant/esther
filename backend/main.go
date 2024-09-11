@@ -36,6 +36,8 @@ func main() {
 	// Migrate the schema
 	models.DB.AutoMigrate(&models.User{}, &models.Role{})
 
+	models.CreateDefaultRoleAndAdmin()
+
 	// Setup the routes
 	r := routes.SetupRouter()
 
