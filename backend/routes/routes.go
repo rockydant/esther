@@ -61,13 +61,6 @@ func SetupRouter(roleController *controller.RoleController, userController *cont
 	protected.PUT("users/:id", userController.UpdateUser)
 	protected.DELETE("users/:id", userController.DeleteUser)
 
-	// swagger:route GET /api/roles roles GetRoles
-	//
-	// GetRoles returns all roles.
-	//
-	// Responses:
-	//
-	//	200: successResponse
 	protected.GET("/roles", roleController.GetRoles)
 	protected.GET("/roles/:id", roleController.GetRole)
 	protected.POST("/roles", roleController.CreateRole)

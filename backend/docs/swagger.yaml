@@ -13,6 +13,8 @@ definitions:
     - role_id
     - username
     type: object
+  models.Role:
+    type: object
   models.UpdatedUserDTO:
     properties:
       role_id:
@@ -83,6 +85,104 @@ paths:
       summary: Register
       tags:
       - Auth
+  /roles:
+    delete:
+      consumes:
+      - application/json
+      description: Delete role
+      parameters:
+      - description: Role ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+      security:
+      - JWT: []
+      summary: Delete role
+      tags:
+      - Roles
+    get:
+      consumes:
+      - application/json
+      description: list all roles
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+      security:
+      - JWT: []
+      summary: List roles
+      tags:
+      - Roles
+    post:
+      consumes:
+      - application/json
+      description: Create new role
+      parameters:
+      - description: Create new role
+        in: body
+        name: Role
+        required: true
+        schema:
+          $ref: '#/definitions/models.Role'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+      security:
+      - JWT: []
+      summary: Create role
+      tags:
+      - Roles
+    put:
+      consumes:
+      - application/json
+      description: Update role
+      parameters:
+      - description: Update role
+        in: body
+        name: Role
+        required: true
+        schema:
+          $ref: '#/definitions/models.Role'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+      security:
+      - JWT: []
+      summary: Update role
+      tags:
+      - Roles
+  /roles/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get role by id
+      parameters:
+      - description: Role ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+      security:
+      - JWT: []
+      summary: Get role
+      tags:
+      - Roles
   /users:
     delete:
       consumes:

@@ -17,20 +17,30 @@ func InitRoleController(service service.RolesService) *RoleController {
 	return &RoleController{roleService: service}
 }
 
-// swagger:route GET /api/roles roles GetRoles
+// @Summary List roles
+// @Description list all roles
+// @Accept  json
+// @Produce  json
+// @Tags Roles
 //
-// GetRoles returns all roles.
-//
-// Responses:
-//
-//	200: successResponse
+// @Security JWT
+// @Success 200 "ok"
+// @Router /roles [get]
 func (controller *RoleController) GetRoles(c *gin.Context) {
 	roles := controller.roleService.FindAll()
 
 	c.JSON(http.StatusOK, gin.H{"data": roles})
 }
 
-// GetRole handles the GET request to retrieve a single role by ID
+// @Summary Get role
+// @Description Get role by id
+// @Accept  json
+// @Produce  json
+// @Tags Roles
+// @Param id path string true "Role ID"
+// @Security JWT
+// @Success 200 "ok"
+// @Router /roles/{id} [get]
 func (controller *RoleController) GetRole(c *gin.Context) {
 	id := c.Param("id")
 	roleId, _ := strconv.Atoi(id)
@@ -40,7 +50,15 @@ func (controller *RoleController) GetRole(c *gin.Context) {
 	c.JSON(http.StatusOK, role)
 }
 
-// CreateRole handles the POST request to create a new role
+// @Summary Create role
+// @Description Create new role
+// @Accept  json
+// @Produce  json
+// @Tags Roles
+// @Param Role	body		models.Role	true	"Create new role"
+// @Security JWT
+// @Success 200 "ok"
+// @Router /roles [post]
 func (controller *RoleController) CreateRole(c *gin.Context) {
 	var role models.Role
 	if err := c.ShouldBindJSON(&role); err != nil {
@@ -52,7 +70,15 @@ func (controller *RoleController) CreateRole(c *gin.Context) {
 	c.JSON(http.StatusCreated, role)
 }
 
-// UpdateRole handles the PUT request to update an existing role by ID
+// @Summary Update role
+// @Description Update role
+// @Accept  json
+// @Produce  json
+// @Tags Roles
+// @Param Role	body		models.Role	true	"Update role"
+// @Security JWT
+// @Success 200 "ok"
+// @Router /roles [put]
 func (controller *RoleController) UpdateRole(c *gin.Context) {
 	id := c.Param("id")
 	var role models.Role
@@ -71,7 +97,15 @@ func (controller *RoleController) UpdateRole(c *gin.Context) {
 	c.JSON(http.StatusOK, role)
 }
 
-// DeleteRole handles the DELETE request to delete a role by ID
+// @Summary Delete role
+// @Description Delete role
+// @Accept  json
+// @Produce  json
+// @Tags Roles
+// @Param id path string true "Role ID"
+// @Security JWT
+// @Success 200 "ok"
+// @Router /roles [delete]
 func (controller *RoleController) DeleteRole(c *gin.Context) {
 	id := c.Param("id")
 	if err := models.DB.Delete(&models.Role{}, id).Error; err != nil {
