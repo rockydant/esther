@@ -4,14 +4,14 @@ import (
 	"errors"
 	"esther/models"
 
-	"github.com/jinzhu/gorm"
+	"gorm.io/gorm"
 )
 
 type UsersRepositoryImpl struct {
 	Db *gorm.DB
 }
 
-func InitUsersRepository(db *gorm.DB) UsersRepository {
+func InitUsersRepositoryImpl(db *gorm.DB) UsersRepository {
 	return &UsersRepositoryImpl{Db: db}
 }
 

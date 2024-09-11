@@ -1,12 +1,24 @@
-package controllers
+package controller
 
 import (
 	"esther/models"
+	service "esther/services"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 )
+
+type UserController struct {
+	userService service.UsersService
+}
+
+func InitUserController(service service.UsersService) *UserController {
+	return &UserController{
+		userService: service,
+	}
+}
 
 // @Summary List users
 // @Description list all users
@@ -17,9 +29,8 @@ import (
 // @Security JWT
 // @Success 200 "ok"
 // @Router /api/users [get]
-func GetUsers(c *gin.Context) {
-	var users []models.User
-	models.DB.Preload("Role").Find(&users)
+func (controller *UserController) GetUsers(c *gin.Context) {
+	users := controller.userService.FindAll()
 	c.JSON(http.StatusOK, gin.H{"data": users})
 }
 
@@ -32,13 +43,11 @@ func GetUsers(c *gin.Context) {
 // @Security JWT
 // @Success 200 "ok"
 // @Router /api/users [get]
-func GetUser(c *gin.Context) {
+func (controller *UserController) GetUser(c *gin.Context) {
 	id := c.Param("id")
-	var user models.User
-	if err := models.DB.Preload("Role").First(&user, id).Error; err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
-		return
-	}
+	parsedId, _ := strconv.Atoi(id)
+	user := controller.userService.FindById(parsedId)
+
 	c.JSON(http.StatusOK, user)
 }
 
@@ -51,7 +60,7 @@ func GetUser(c *gin.Context) {
 // @Security JWT
 // @Success 200 "ok"
 // @Router /api/users [post]
-func CreateUser(c *gin.Context) {
+func (controller *UserController) CreateUser(c *gin.Context) {
 	var input models.RegisterDTO
 
 	// Bind and validate the input
@@ -106,7 +115,7 @@ func CreateUser(c *gin.Context) {
 // @Success 200 "ok"
 // @Router /api/users [put]
 // UpdateUser handles the PUT request to update an existing user by ID
-func UpdateUser(c *gin.Context) {
+func (controller *UserController) UpdateUser(c *gin.Context) {
 	var updatedUser models.UpdatedUserDTO
 	if err := c.ShouldBindJSON(&updatedUser); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -151,7 +160,7 @@ func UpdateUser(c *gin.Context) {
 // @Success 200 "ok"
 // @Router /api/users [delete]
 // DeleteUser handles the DELETE request to delete a user by ID
-func DeleteUser(c *gin.Context) {
+func (controller *UserController) DeleteUser(c *gin.Context) {
 	id := c.Param("id")
 	if err := models.DB.Delete(&models.User{}, id).Error; err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})

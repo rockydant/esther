@@ -16,7 +16,7 @@ package routes
 
 import (
 	"esther/config"
-	"esther/controllers"
+	controller "esther/controllers"
 	_ "esther/docs"
 	"esther/middlewares"
 	"strings"
@@ -27,7 +27,7 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger" // Swagger handler
 )
 
-func SetupRouter() *gin.Engine {
+func SetupRouter(roleController *controller.RoleController, userController *controller.UserController) *gin.Engine {
 	r := gin.Default()
 	corsDomains := strings.Split(config.GetEnvVariable("cors"), ",")
 
@@ -45,8 +45,8 @@ func SetupRouter() *gin.Engine {
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	// Public routes
-	r.POST("/login", controllers.Login)
-	r.POST("/register", controllers.Register)
+	r.POST("/login", controller.Login)
+	r.POST("/register", controller.Register)
 
 	// Protected routes
 	protected := r.Group("/api")
@@ -55,11 +55,11 @@ func SetupRouter() *gin.Engine {
 	protected.Use(middlewares.CORSMiddleware())
 	protected.Use(middlewares.JWTAuthMiddleware())
 
-	protected.GET("/users", controllers.GetUsers)
-	protected.GET("/users/:id", controllers.GetUser)
-	protected.POST("/users", controllers.CreateUser)
-	protected.PUT("/users/:id", controllers.UpdateUser)
-	protected.DELETE("/users/:id", controllers.DeleteUser)
+	protected.GET("/users", userController.GetUsers)
+	protected.GET("/users/:id", userController.GetUser)
+	protected.POST("/users", userController.CreateUser)
+	protected.PUT("/users/:id", userController.UpdateUser)
+	protected.DELETE("/users/:id", userController.DeleteUser)
 
 	// swagger:route GET /api/roles roles GetRoles
 	//
@@ -68,11 +68,11 @@ func SetupRouter() *gin.Engine {
 	// Responses:
 	//
 	//	200: successResponse
-	protected.GET("/roles", controllers.GetRoles)
-	protected.GET("/roles/:id", controllers.GetRole)
-	protected.POST("/roles", controllers.CreateRole)
-	protected.PUT("/roles/:id", controllers.UpdateRole)
-	protected.DELETE("/roles/:id", controllers.DeleteRole)
+	protected.GET("/roles", roleController.GetRoles)
+	protected.GET("/roles/:id", roleController.GetRole)
+	protected.POST("/roles", roleController.CreateRole)
+	protected.PUT("/roles/:id", roleController.UpdateRole)
+	protected.DELETE("/roles/:id", roleController.DeleteRole)
 
 	return r
 }
