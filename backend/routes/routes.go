@@ -15,9 +15,11 @@
 package routes
 
 import (
+	"esther/config"
 	"esther/controllers"
 	_ "esther/docs"
 	"esther/middlewares"
+	"strings"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -27,12 +29,13 @@ import (
 
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
+	corsDomains := strings.Split(config.GetEnvVariable("cors"), ",")
 
 	corsConfig := cors.Config{
-		AllowOrigins:     []string{"http://localhost:4200", "https://your-frontend-domain.com"}, // List allowed origins
-		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},                   // List allowed methods
-		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},                   // List allowed headers
-		AllowCredentials: true,                                                                  // Allow credentials (cookies, authorization headers, etc.)
+		AllowOrigins:     corsDomains,                                         // List allowed origins
+		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}, // List allowed methods
+		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"}, // List allowed headers
+		AllowCredentials: true,                                                // Allow credentials (cookies, authorization headers, etc.)
 	}
 
 	r.Use(cors.New(corsConfig))
@@ -54,7 +57,7 @@ func SetupRouter() *gin.Engine {
 
 	protected.GET("/users", controllers.GetUsers)
 	protected.GET("/users/:id", controllers.GetUser)
-	protected.POST("/users", controllers.CreateUser)
+	protected.POST("/user", controllers.CreateUser)
 	protected.PUT("/users/:id", controllers.UpdateUser)
 	protected.DELETE("/users/:id", controllers.DeleteUser)
 
