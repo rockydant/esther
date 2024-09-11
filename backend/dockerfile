@@ -2,10 +2,10 @@
 FROM golang:1.21.4-alpine AS builder
 
 # Set the Current Working Directory inside the container
-WORKDIR /esther
+WORKDIR /app
 
 # Copy go mod and sum files
-COPY go.mod go.sum ./
+COPY go.mod go.sum /app/
 
 # Download all dependencies. Dependencies will be cached if the go.mod and go.sum files are not changed
 RUN go mod download
@@ -14,16 +14,13 @@ RUN go mod download
 COPY . .
 
 # Build the Go app
-RUN go build -o main.go .
+RUN go build -o main main.go
 
 # Stage 2: Run the Go application
 FROM alpine:latest
 
-# Set the Current Working Directory inside the container
-WORKDIR /esther
-
 # Copy the Pre-built binary file from the builder stage
-COPY --from=builder /esther/main .
+COPY --from=builder /app/main .
 
 # Expose port 8080 to the outside world
 EXPOSE 8080

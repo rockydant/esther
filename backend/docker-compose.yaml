@@ -3,7 +3,7 @@ services:
     image: postgres
     container_name: postgres-container
     environment:
-      POSTGRES_USER: esther
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 12345678
       POSTGRES_DB: esther
     ports:
@@ -16,6 +16,8 @@ services:
     container_name: esther
     depends_on:
       - db
+    env_file:
+      - .env
     ports:
       - "8080:8080"
     networks:
