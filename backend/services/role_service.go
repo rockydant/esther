@@ -5,7 +5,7 @@ import (
 )
 
 type RolesService interface {
-	Create(name string)
+	Create(name string) models.Role
 	Update(role models.Role)
 	Delete(id int)
 	FindById(id int) models.Role

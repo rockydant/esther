@@ -55,19 +55,15 @@ func (controller *RoleController) GetRole(c *gin.Context) {
 // @Accept  json
 // @Produce  json
 // @Tags Roles
-// @Param Role	body		models.Role	true	"Create new role"
+// @Param name	path		string	true	"Create new role"
 // @Security JWT
 // @Success 200 "ok"
-// @Router /roles [post]
+// @Router /roles/{name} [post]
 func (controller *RoleController) CreateRole(c *gin.Context) {
-	var role models.Role
-	if err := c.ShouldBindJSON(&role); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+	name := c.Param("name")
 
-	controller.roleService.Create(role.Name)
-	c.JSON(http.StatusCreated, role)
+	newRole := controller.roleService.Create(name)
+	c.JSON(http.StatusCreated, newRole)
 }
 
 // @Summary Update role

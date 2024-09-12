@@ -13,13 +13,15 @@ type RolesServiceImpl struct {
 }
 
 // Create implements UsersService.
-func (r *RolesServiceImpl) Create(name string) {
+func (r *RolesServiceImpl) Create(name string) models.Role {
 
 	userModel := models.Role{
 		Name: name,
 	}
 
 	r.RolesRepository.Save(userModel)
+
+	return userModel
 }
 
 // Delete implements UsersService.

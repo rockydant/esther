@@ -120,27 +120,6 @@ paths:
       summary: List roles
       tags:
       - Roles
-    post:
-      consumes:
-      - application/json
-      description: Create new role
-      parameters:
-      - description: Create new role
-        in: body
-        name: Role
-        required: true
-        schema:
-          $ref: '#/definitions/models.Role'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: ok
-      security:
-      - JWT: []
-      summary: Create role
-      tags:
-      - Roles
     put:
       consumes:
       - application/json
@@ -181,6 +160,27 @@ paths:
       security:
       - JWT: []
       summary: Get role
+      tags:
+      - Roles
+  /roles/{name}:
+    post:
+      consumes:
+      - application/json
+      description: Create new role
+      parameters:
+      - description: Create new role
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+      security:
+      - JWT: []
+      summary: Create role
       tags:
       - Roles
   /users:

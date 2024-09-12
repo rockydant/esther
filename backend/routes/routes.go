@@ -19,15 +19,45 @@ import (
 	controller "esther/controllers"
 	_ "esther/docs"
 	"esther/middlewares"
+	"esther/models"
+	repository "esther/repositories"
+	service "esther/services"
 	"strings"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 	swaggerFiles "github.com/swaggo/files"     // swaggerFiles alias for the files package
 	ginSwagger "github.com/swaggo/gin-swagger" // Swagger handler
 )
 
-func SetupRouter(roleController *controller.RoleController, userController *controller.UserController) *gin.Engine {
+func InitRoleController(validate *validator.Validate) *controller.RoleController {
+	//Init Role Repository
+	roleRepository := repository.InitRolesRepositoryImpl(models.DB)
+
+	//Init Role Service
+	roleService := service.InitRolesServiceImpl(roleRepository, validate)
+
+	//Init Role controller
+	roleController := controller.InitRoleController(roleService)
+
+	return roleController
+}
+
+func InitUserController(validate *validator.Validate) *controller.UserController {
+	//Init Repository
+	userRepository := repository.InitUsersRepositoryImpl(models.DB)
+
+	//Init Service
+	userService := service.InitUsersServiceImpl(userRepository, validate)
+
+	//Init controller
+	userController := controller.InitUserController(userService)
+
+	return userController
+}
+
+func SetupRouter(validate *validator.Validate) *gin.Engine {
 	r := gin.Default()
 	corsDomains := strings.Split(config.GetEnvVariable("cors"), ",")
 
@@ -55,12 +85,15 @@ func SetupRouter(roleController *controller.RoleController, userController *cont
 	protected.Use(middlewares.CORSMiddleware())
 	protected.Use(middlewares.JWTAuthMiddleware())
 
+	userController := InitUserController(validate)
+
 	protected.GET("users", userController.GetUsers)
 	protected.GET("users/:id", userController.GetUser)
 	protected.POST("users", userController.CreateUser)
 	protected.PUT("users/:id", userController.UpdateUser)
 	protected.DELETE("users/:id", userController.DeleteUser)
 
+	roleController := InitRoleController(validate)
 	protected.GET("/roles", roleController.GetRoles)
 	protected.GET("/roles/:id", roleController.GetRole)
 	protected.POST("/roles", roleController.CreateRole)

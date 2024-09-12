@@ -2,12 +2,9 @@ package main
 
 import (
 	"esther/config"
-	controller "esther/controllers"
 	_ "esther/docs"
 	"esther/models"
-	repository "esther/repositories"
 	"esther/routes"
-	service "esther/services"
 	"log"
 
 	"github.com/go-playground/validator/v10"
@@ -44,26 +41,8 @@ func main() {
 
 	models.CreateDefaultRoleAndAdmin()
 
-	//Init Role Repository
-	roleRepository := repository.InitRolesRepositoryImpl(models.DB)
-
-	//Init Role Service
-	roleService := service.InitRolesServiceImpl(roleRepository, validate)
-
-	//Init Role controller
-	roleController := controller.InitRoleController(roleService)
-
-	//Init Repository
-	userRepository := repository.InitUsersRepositoryImpl(models.DB)
-
-	//Init Service
-	userService := service.InitUsersServiceImpl(userRepository, validate)
-
-	//Init controller
-	userController := controller.InitUserController(userService)
-
 	// Setup the routes
-	r := routes.SetupRouter(roleController, userController)
+	r := routes.SetupRouter(validate)
 
 	// Run the server
 	if err := r.Run(":8080"); err != nil {
