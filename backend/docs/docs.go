@@ -409,18 +409,18 @@ const docTemplate = `{
         "models.RegisterDTO": {
             "type": "object",
             "required": [
-                "password",
-                "role_id",
-                "username"
+                "Password",
+                "Role_id",
+                "Username"
             ],
             "properties": {
-                "password": {
+                "Password": {
                     "type": "string"
                 },
-                "role_id": {
+                "Role_id": {
                     "type": "integer"
                 },
-                "username": {
+                "Username": {
                     "type": "string"
                 }
             }
@@ -431,13 +431,13 @@ const docTemplate = `{
         "models.UpdatedUserDTO": {
             "type": "object",
             "properties": {
-                "role_id": {
+                "Role_id": {
                     "type": "integer"
                 },
-                "user_id": {
+                "User_id": {
                     "type": "integer"
                 },
-                "username": {
+                "Username": {
                     "type": "string"
                 }
             }
@@ -445,10 +445,10 @@ const docTemplate = `{
         "models.UserDTO": {
             "type": "object",
             "properties": {
-                "password": {
+                "Password": {
                     "type": "string"
                 },
-                "username": {
+                "Username": {
                     "type": "string"
                 }
             }

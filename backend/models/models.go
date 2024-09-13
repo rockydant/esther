@@ -10,38 +10,38 @@ import (
 )
 
 type UserDTO struct {
-	Username string `json:"username" gorm:"unique"`
-	Password string `json:"password"`
+	Username string `json:"Username" gorm:"unique"`
+	Password string `json:"Password"`
 }
 
 type RegisterDTO struct {
-	Username string `json:"username" binding:"required"`
-	Password string `json:"password" binding:"required"`
-	RoleID   uint   `json:"role_id" binding:"required"`
+	Username string `json:"Username" binding:"required"`
+	Password string `json:"Password" binding:"required"`
+	RoleID   uint   `json:"Role_id" binding:"required"`
 }
 
 // User represents a blog post with a Username, Password, RoleID, Role.
 // swagger:model
 type User struct {
 	gorm.Model
-	Username string `json:"username" gorm:"unique"`
+	Username string `json:"Username" gorm:"unique"`
 	Password string `json:"-"`
-	RoleID   uint   `json:"role_id"`
-	Role     Role   `json:"role" gorm:"foreignKey:RoleID"`
+	RoleID   uint   `json:"Role_id"`
+	Role     Role   `json:"Role" gorm:"foreignKey:RoleID"`
 }
 
 type UpdatedUserDTO struct {
-	UserID   uint   `json:"user_id"`
-	Username string `json:"username" gorm:"unique"`
+	UserID   uint   `json:"User_id"`
+	Username string `json:"Username" gorm:"unique"`
 	Password string `json:"-"`
-	RoleID   uint   `json:"role_id"`
+	RoleID   uint   `json:"Role_id"`
 }
 
 // Role represents a blog post with a Name.
 // swagger:model
 type Role struct {
 	gorm.Model
-	Name string `json:"name"`
+	Name string `json:"Name"`
 }
 
 var DB *gorm.DB

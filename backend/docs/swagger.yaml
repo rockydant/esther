@@ -2,33 +2,33 @@ basePath: /
 definitions:
   models.RegisterDTO:
     properties:
-      password:
+      Password:
         type: string
-      role_id:
+      Role_id:
         type: integer
-      username:
+      Username:
         type: string
     required:
-    - password
-    - role_id
-    - username
+    - Password
+    - Role_id
+    - Username
     type: object
   models.Role:
     type: object
   models.UpdatedUserDTO:
     properties:
-      role_id:
+      Role_id:
         type: integer
-      user_id:
+      User_id:
         type: integer
-      username:
+      Username:
         type: string
     type: object
   models.UserDTO:
     properties:
-      password:
+      Password:
         type: string
-      username:
+      Username:
         type: string
     type: object
 host: localhost:8080

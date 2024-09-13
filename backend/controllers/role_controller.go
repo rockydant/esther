@@ -29,7 +29,7 @@ func InitRoleController(service service.RolesService) *RoleController {
 func (controller *RoleController) GetRoles(c *gin.Context) {
 	roles := controller.roleService.FindAll()
 
-	c.JSON(http.StatusOK, gin.H{"data": roles})
+	c.JSON(http.StatusOK, roles)
 }
 
 // @Summary Get role
