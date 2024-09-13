@@ -3,11 +3,11 @@ services:
     image: postgres
     container_name: postgres-container
     environment:
-      POSTGRES_HOST: localhost
-      POSTGRES_PORT: 5432
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 12345678
-      POSTGRES_DB: esther
+      POSTGRES_HOST: ${host}
+      POSTGRES_PORT: ${port}
+      POSTGRES_USER: ${user}
+      POSTGRES_PASSWORD: ${password}
+      POSTGRES_DB: ${dbname}
     ports:
       - "5432:5432"
     networks:
