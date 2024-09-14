@@ -2,18 +2,17 @@ import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root',
 })
 export class EnvironmentService {
+    constructor() {}
 
-  constructor() { }
+    public BackendEndpoint = import.meta.env.NG_APP_BACKEND_ENDPOINT;
 
-  public BackendEndpoint = import.meta.env.NG_APP_BACKEND_ENDPOINT;
+    // roles endpoints
+    public BackendRolesEndpoint = this.BackendEndpoint + '/roles';
 
-  // roles endpoints
-  public BackendRolesEndpoint = this.BackendEndpoint + '/Roles';
-
-  public HttpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
+    public HttpOptions = {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    };
 }
