@@ -31,7 +31,7 @@ func InitUserController(service service.UsersService) *UserController {
 // @Router /users [get]
 func (controller *UserController) GetUsers(c *gin.Context) {
 	users := controller.userService.FindAll()
-	c.JSON(http.StatusOK, gin.H{"data": users})
+	c.JSON(http.StatusOK, users)
 }
 
 // @Summary Get user
