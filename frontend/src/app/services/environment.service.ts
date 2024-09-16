@@ -10,7 +10,7 @@ export class EnvironmentService {
     public BackendEndpoint = import.meta.env.NG_APP_BACKEND_ENDPOINT;
 
     // roles endpoints
-    public BackendRolesEndpoint = this.BackendEndpoint + '/roles';
+    public BackendRolesEndpoint = this.BackendEndpoint + 'roles';
 
     public HttpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),

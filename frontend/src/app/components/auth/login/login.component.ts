@@ -35,7 +35,6 @@ export class LoginComponent {
     constructor(private router: Router, private authService: AuthService) {}
 
     onSubmit() {
-        console.log('clicked');
         this.authService
             .login(this.loginData.username, this.loginData.password)
             .subscribe(
