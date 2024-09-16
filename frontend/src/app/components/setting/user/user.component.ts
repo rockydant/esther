@@ -3,6 +3,7 @@ import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { Product } from 'src/app/demo/api/product';
 import { ProductService } from 'src/app/demo/service/product.service';
+import { RoleDTO } from 'src/app/models/role';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -32,6 +33,8 @@ export class UserComponent {
 
     rowsPerPageOptions = [5, 10, 20];
 
+    roleList: RoleDTO[] = [];
+
     constructor(
         private productService: ProductService,
         private messageService: MessageService,
@@ -58,7 +61,9 @@ export class UserComponent {
         ];
 
         this.userService.getRoles().subscribe((data) => {
-            console.log(data);
+            if(data != null){
+                this.roleList = data;                
+            }
         });
     }
 
