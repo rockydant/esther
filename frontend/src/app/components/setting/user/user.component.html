@@ -19,7 +19,7 @@
                 </ng-template>
             </p-toolbar>
 
-            <p-table #dt [value]="products" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedProducts" selectionMode="multiple" [rowHover]="true" dataKey="id">
+            <p-table #dt [value]="userList" [columns]="cols" responsiveLayout="scroll" [rows]="10" [globalFilterFields]="['name','country.name','representative.name','status']" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [(selection)]="selectedProducts" selectionMode="multiple" [rowHover]="true" dataKey="id">
                 <ng-template pTemplate="caption">
                     <div class="flex flex-column md:flex-row md:justify-content-between md:align-items-center m-2">
                         <h5 class="m-0">Manage Users</h5>
@@ -34,13 +34,11 @@
                         <th style="width: 3rem">
                             <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                         </th>
-                        <th pSortableColumn="code">Code <p-sortIcon field="code"></p-sortIcon></th>
-                        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-                        <th>Image</th>
-                        <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
-                        <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
-                        <th pSortableColumn="rating">Reviews <p-sortIcon field="rating"></p-sortIcon></th>
-                        <th pSortableColumn="inventoryStatus">Status <p-sortIcon field="inventoryStatus"></p-sortIcon></th>
+                        <th pSortableColumn="ID">ID <p-sortIcon field="ID"></p-sortIcon></th>
+                        <th pSortableColumn="Username">Username <p-sortIcon field="Username"></p-sortIcon></th>
+                        <th pSortableColumn="CreatedAt">CreatedAt <p-sortIcon field="CreatedAt"></p-sortIcon></th>
+                        <th pSortableColumn="UpdatedAt">UpdatedAt <p-sortIcon field="UpdatedAt"></p-sortIcon></th>
+                        <th pSortableColumn="DeletedAt">DeletedAt <p-sortIcon field="DeletedAt"></p-sortIcon></th>
                         <th></th>
                     </tr>
                 </ng-template>
@@ -49,30 +47,22 @@
                         <td>
                             <p-tableCheckbox [value]="product"></p-tableCheckbox>
                         </td>
-                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">Code</span>
-                            {{product.code || product.id}}
+                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">ID</span>
+                            {{product.ID}}
                         </td>
                         <td style="width:14%; min-width:10rem;">
-                            <span class="p-column-title">Name</span>
-                            {{product.name}}
+                            <span class="p-column-title">Username</span>
+                            {{product.Username}}
                         </td>
-                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">Image</span>
-                            <img [src]="'assets/demo/images/product/' + product.image" [alt]="product.name" width="100" class="shadow-4" />
+                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">CreatedAt</span>
+                           {{product.CreatedAt | date : 'dd/MM/yyyy'}}
                         </td>
-                        <td style="width:14%; min-width:8rem;">
-                            <span class="p-column-title">Price</span>
-                            {{product.price | currency:'USD'}}
-                        </td>
-                        <td style="width:14%; min-width:10rem;">
-                            <span class="p-column-title">Category</span>
-                            {{product.category}}
-                        </td>
-                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Reviews</span>
-                            <p-rating [ngModel]="product.rating" [readonly]="true" [cancel]="false"></p-rating>
-                        </td>
-                        <td style="width:14%; min-width: 10rem;"><span class="p-column-title">Status</span>
-                            <span [class]="'product-badge status-' + (product.inventoryStatus ? product.inventoryStatus.toLowerCase() : '')">{{product.inventoryStatus}}</span>
-                        </td>
+                        <td style="width:14%; min-width:10rem;"><span class="p-column-title">CreatedAt</span>
+                            {{product.UpdatedAt | date : 'dd/MM/yyyy'}}
+                         </td>
+                         <td style="width:14%; min-width:10rem;"><span class="p-column-title">CreatedAt</span>
+                            {{product.DeletedAt | date : 'dd/MM/yyyy'}}
+                         </td>
                         <td>
                             <div class="flex">
                                 <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="editProduct(product)"></button>

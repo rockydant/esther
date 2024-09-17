@@ -4,6 +4,7 @@ import { Table } from 'primeng/table';
 import { Product } from 'src/app/demo/api/product';
 import { ProductService } from 'src/app/demo/service/product.service';
 import { RoleDTO } from 'src/app/models/role';
+import { UserDTO } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -35,6 +36,8 @@ export class UserComponent {
 
     roleList: RoleDTO[] = [];
 
+    userList: UserDTO[] = [];
+
     constructor(
         private productService: ProductService,
         private messageService: MessageService,
@@ -47,11 +50,12 @@ export class UserComponent {
             .then((data) => (this.products = data));
 
         this.cols = [
-            { field: 'product', header: 'Product' },
-            { field: 'price', header: 'Price' },
-            { field: 'category', header: 'Category' },
-            { field: 'rating', header: 'Reviews' },
-            { field: 'inventoryStatus', header: 'Status' },
+            { field: 'ID', header: 'ID' },
+            { field: 'Username', header: 'Username' },
+            { field: 'CreatedAt', header: 'CreatedAt' },
+            { field: 'UpdatedAt', header: 'UpdatedAt' },
+            { field: 'DeletedAt', header: 'DeletedAt' },
+            { field: 'Role.Name', header: 'Role' },
         ];
 
         this.statuses = [
@@ -61,8 +65,15 @@ export class UserComponent {
         ];
 
         this.userService.getRoles().subscribe((data) => {
-            if(data != null){
-                this.roleList = data;                
+            if (data != null) {
+                this.roleList = data;
+            }
+        });
+
+        this.userService.getUsers().subscribe((data) => {
+            if (data != null) {
+                this.userList = data;
+                console.log(this.userList);
             }
         });
     }

@@ -11,6 +11,7 @@ export class EnvironmentService {
 
     // roles endpoints
     public BackendRolesEndpoint = this.BackendEndpoint + 'roles';
+    public BackendUsersEndpoint = this.BackendEndpoint + 'users';
 
     public HttpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
