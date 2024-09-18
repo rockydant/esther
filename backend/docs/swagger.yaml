@@ -17,6 +17,8 @@ definitions:
     type: object
   models.UpdatedUserDTO:
     properties:
+      Password:
+        type: string
       Role_id:
         type: integer
       User_id:

@@ -431,6 +431,9 @@ const docTemplate = `{
         "models.UpdatedUserDTO": {
             "type": "object",
             "properties": {
+                "Password": {
+                    "type": "string"
+                },
                 "Role_id": {
                     "type": "integer"
                 },

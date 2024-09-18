@@ -33,7 +33,7 @@ type User struct {
 type UpdatedUserDTO struct {
 	UserID   uint   `json:"User_id"`
 	Username string `json:"Username" gorm:"unique"`
-	Password string `json:"-"`
+	Password string `json:"Password"`
 	RoleID   uint   `json:"Role_id"`
 }
 
